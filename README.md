@@ -1,16 +1,52 @@
-# React + Vite
+# whoisambi
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio website for **Ambi (Ambuj Pandey)**, built with React + Vite, featuring advanced motion design, a pixel-art identity system, and a full avatar crafting experience.
 
-Currently, two official plugins are available:
+## Highlights
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Animated single-page portfolio (Hero, About, Skills, Projects, Contact)
+- 3D + parallax hero interactions using Framer Motion
+- Pixel anime avatar component integrated across sections
+- Dedicated **Craft Avatar** page with deep customization options
+- Avatar export support in **PNG** and **SVG** formats
+- Content-driven setup via `src/data/portfolio.json`
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- Vite 7
+- Tailwind CSS 4
+- Framer Motion
+- React Router DOM
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+npm run dev
+```
+
+Open the local URL shown by Vite (usually `http://localhost:5173`).
+
+## Scripts
+
+- `npm run dev` — start development server
+- `npm run build` — production build
+- `npm run preview` — preview production build locally
+- `npm run lint` — run ESLint
+
+## Project Structure
+
+- `src/components` — portfolio UI sections and reusable components
+- `src/pages/AvatarCrafter.jsx` — avatar builder experience
+- `src/data/portfolio.json` — personal info, skills, projects, experience
+- `src/data/avatarParts.js` — avatar customization data and rendering helpers
+
+## Customization Notes
+
+- Update your portfolio content in `src/data/portfolio.json`.
+- To tweak avatar options (styles/colors/layers), edit `src/data/avatarParts.js`.
+
+## Status
+
+Actively evolving portfolio project with ongoing design and interaction upgrades.
