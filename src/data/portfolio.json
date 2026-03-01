@@ -1,0 +1,277 @@
+{
+  "personal": {
+    "name": "Ambuj Pandey",
+    "alias": "Ambi",
+    "role": "Software Developer",
+    "taglines": [
+      "Building elegant digital experiences",
+      "Crafting clean & scalable code",
+      "Turning ideas into reality"
+    ],
+    "bio": "I’m a multi-stack developer who builds practical products across web, mobile, and systems programming. My work spans React/TypeScript interfaces, Flutter apps, backend-heavy experiments, and developer tooling—always with a focus on clean architecture, useful UX, and reliable execution. I enjoy turning ambitious ideas into working software, whether that means shipping a polished portfolio, prototyping safety-first mobile products, or building low-level systems projects from scratch.",
+    "email": "amberonvoldimoth@gmail.com",
+    "location": "India",
+    "resumeUrl": "#"
+  },
+  "social": {
+    "github": "https://github.com/Amberon-voldi",
+    "linkedin": "https://www.linkedin.com/in/ambuj-pandey-620892212/",
+    "instagram": "https://instagram.com/ft.ambi"
+  },
+  "skills": [
+    {
+      "category": "Frontend",
+      "icon": "layout",
+      "items": [
+        "React",
+        "Next.js",
+        "JavaScript",
+        "TypeScript",
+        "HTML",
+        "CSS",
+        "Tailwind CSS",
+        "Sass",
+        "Bootstrap",
+        "DaisyUI",
+        "Chart.js",
+        "Three.js",
+        "ReactJS",
+        "NEXT.js",
+        "Angular",
+        "Vite"
+      ]
+    },
+    {
+      "category": "Mobile & Cross-Platform",
+      "icon": "server",
+      "items": [
+        "Flutter",
+        "Dart",
+        "Kotlin",
+        "Swift",
+        "React Native",
+        "Android",
+        "iOS",
+        "Cross-platform UI",
+        "Offline-first patterns",
+        "Appwrite",
+        "Firebase",
+        "Twilio"
+      ]
+    },
+    {
+      "category": "Backend, Systems & Web3",
+      "icon": "database",
+      "items": [
+        "Node.js",
+        "Express.js",
+        "Django",
+        "Rails",
+        "Python",
+        "C",
+        "C++",
+        "C#",
+        "Rust",
+        "Solidity",
+        "Smart Contracts",
+        "Web3.js",
+        "Socket.IO",
+        "REST APIs"
+      ]
+    },
+    {
+      "category": "Databases",
+      "icon": "database",
+      "items": [
+        "PostgreSQL",
+        "MySQL",
+        "MongoDB",
+        "Redis",
+        "SQLite",
+        "MariaDB",
+        "Microsoft SQL Server",
+        "Amazon DynamoDB",
+        "Cassandra",
+        "PocketBase",
+        "Supabase",
+        "Oracle"
+      ]
+    },
+    {
+      "category": "Cloud, DevOps & Tools",
+      "icon": "terminal",
+      "items": [
+        "AWS",
+        "Google Cloud",
+        "Cloudflare",
+        "Vercel",
+        "Netlify",
+        "Vultr",
+        "Docker",
+        "Kubernetes",
+        "Git",
+        "GitHub",
+        "GitLab",
+        "Bitbucket",
+        "GitHub Actions",
+        "GitLab CI",
+        "Apache",
+        "Nginx",
+        "Bun",
+        "npm",
+        "nodemon",
+        "Vite",
+        "ESLint",
+        "Markdown",
+        "Bash",
+        "PowerShell",
+        "Windows Terminal",
+        "CLI Development",
+        "Postman"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "guardian-wheel",
+      "title": "Guardian Wheel",
+      "subtitle": "Offline-First Rider Safety App",
+      "description": "A Flutter safety companion for gig riders focused on hazard detection, SOS workflows, and low-signal reliability.",
+      "longDescription": "Guardian Wheel is a safety-focused Flutter application designed for delivery riders in low-connectivity environments. It targets crash/fatigue detection using phone sensors and outlines a mesh-alert/SOS pipeline that can escalate incidents once network returns.",
+      "highlights": [
+        "Offline-first emergency design",
+        "Sensor-driven hazard/fatigue concept",
+        "Cross-platform Flutter codebase",
+        "Safety workflows with escalation planning",
+        "Road hazard mapping direction"
+      ],
+      "tags": ["Flutter", "Dart", "Kotlin", "C++"],
+      "image": "",
+      "liveUrl": "#",
+      "githubUrl": "https://github.com/Amberon-voldi/Guardian-Wheel",
+      "year": "2026"
+    },
+    {
+      "id": "finmitra",
+      "title": "FinMitra",
+      "subtitle": "AI-Based Personal Finance Companion",
+      "description": "A Flutter app for smart expense tracking, analytics, and goal-driven personal finance guidance.",
+      "longDescription": "FinMitra is a multi-platform Flutter project that explores AI-assisted finance management. The app emphasizes practical money tracking, analytics, and user-centric planning features across Android, iOS, web, and desktop targets.",
+      "highlights": [
+        "AI-powered finance feature direction",
+        "Expense tracking and reporting focus",
+        "Cross-platform Flutter targets",
+        "Structured mobile app architecture",
+        "Scalable product-style foundation"
+      ],
+      "tags": ["Flutter", "Dart", "AI", "Mobile"],
+      "image": "",
+      "liveUrl": "#",
+      "githubUrl": "https://github.com/Amberon-voldi/FinMitra",
+      "year": "2025"
+    },
+    {
+      "id": "ambidb",
+      "title": "AmbiDB",
+      "subtitle": "Console DBMS in C++",
+      "description": "A C++ CLI project implementing DBMS fundamentals with CRUD operations and file-based persistence.",
+      "longDescription": "AmbiDB is a systems-oriented C++ project that demonstrates core relational concepts through a menu-driven CLI. It includes record modeling, CRUD flows, validation, uniqueness checks, and persistent storage via structured text data.",
+      "highlights": [
+        "Complete CRUD command-line workflow",
+        "Primary key and uniqueness constraints",
+        "Validation and error handling",
+        "File-backed persistence model",
+        "Clear modular function design"
+      ],
+      "tags": ["C++", "CLI", "DBMS", "File I/O"],
+      "image": "",
+      "liveUrl": "#",
+      "githubUrl": "https://github.com/Amberon-voldi/AmbiDB",
+      "year": "2025"
+    },
+    {
+      "id": "wldplay",
+      "title": "wldplay",
+      "subtitle": "World Mini-App Starter",
+      "description": "A TypeScript/Next.js mini-app setup for World App integrations with wallet-auth based flows.",
+      "longDescription": "wldplay explores mini-app development with a TypeScript-heavy Next.js stack, integrating wallet authentication and world-app-specific SDK patterns. It serves as a practical base for shipping mini-app experiences with platform-aligned UI and auth handling.",
+      "highlights": [
+        "TypeScript-first Next.js implementation",
+        "Wallet-auth/session integration",
+        "Mini-app architecture patterns",
+        "Environment-based deployment workflow",
+        "Extensible starter structure"
+      ],
+      "tags": ["TypeScript", "Next.js", "Auth", "Web3"],
+      "image": "",
+      "liveUrl": "#",
+      "githubUrl": "https://github.com/Amberon-voldi/wldplay",
+      "year": "2025"
+    },
+    {
+      "id": "guilded-dart",
+      "title": "Guilded.dart",
+      "subtitle": "Dart Library for Guilded Bots",
+      "description": "A Dart package to simplify building bots for Guilded with a clean library-first approach.",
+      "longDescription": "Guilded.dart is a focused library project aimed at making Guilded bot development easier from Dart. It reflects package-oriented design, API thinking, and reusable abstraction practices.",
+      "highlights": [
+        "Reusable Dart package design",
+        "Bot integration oriented API",
+        "Open-source documentation setup",
+        "Community-facing developer utility",
+        "Published library-style repo structure"
+      ],
+      "tags": ["Dart", "Library", "Bots", "Open Source"],
+      "image": "",
+      "liveUrl": "#",
+      "githubUrl": "https://github.com/Amberon-voldi/Guilded.dart",
+      "year": "2022"
+    },
+    {
+      "id": "worldcoin-connect",
+      "title": "worldcoin-connect",
+      "subtitle": "Flutter Plugin for Worldcoin Integration",
+      "description": "An open-source Dart/Flutter package aimed at integrating Worldcoin capabilities into apps.",
+      "longDescription": "worldcoin-connect is a package-focused integration project for bringing Worldcoin-related capabilities into Flutter workflows. It highlights plugin architecture and practical Web3/mobile bridge experimentation.",
+      "highlights": [
+        "Flutter package architecture",
+        "Web3 integration focus",
+        "Developer-friendly open-source setup",
+        "Lightweight integration surface",
+        "Composable package approach"
+      ],
+      "tags": ["Flutter", "Dart", "Worldcoin", "Package"],
+      "image": "",
+      "liveUrl": "#",
+      "githubUrl": "https://github.com/Amberon-voldi/worldcoin-connect",
+      "year": "2024"
+    }
+  ],
+  "experience": [
+    {
+      "role": "Back End Developer",
+      "company": "Self-Employed",
+      "period": "2025 - Present",
+      "description": "Building and maintaining scalable backend systems. Designing RESTful APIs and integrating third-party services to enhance functionality."
+    },
+    {
+      "role": "Software Development Lead",
+      "company": "Mythics Studio",
+      "period": "2023 - 2025",
+      "description": "Led a team of developers in creating innovative software solutions. Oversaw project development from conception to deployment, ensuring high-quality code and timely delivery."
+    },
+      {
+      "role": "Project Development Manager",
+      "company": "SP Taxi Service",
+      "period": "2025",
+      "description": "Managed development of a ride-hailing application, coordinating between cross-functional teams to deliver a seamless user experience. Implemented features such as real-time tracking and payment integration."
+    }
+  ],
+  "navLinks": [
+    { "label": "Home", "href": "#home" },
+    { "label": "About", "href": "#about" },
+    { "label": "Skills", "href": "#skills" },
+    { "label": "Projects", "href": "#projects" },
+    { "label": "Contact", "href": "#contact" }
+  ]
+}
