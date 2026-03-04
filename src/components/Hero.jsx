@@ -93,6 +93,16 @@ function FloatingCode({ delay, x, y }) {
 
 export default function Hero() {
   const sectionRef = useRef(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)')
+    const sync = () => setIsMobile(mq.matches)
+    sync()
+    mq.addEventListener('change', sync)
+    return () => mq.removeEventListener('change', sync)
+  }, [])
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start'],
@@ -149,9 +159,9 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      className="relative min-h-[100svh] py-24 sm:py-0 flex items-center justify-center overflow-hidden"
+      onMouseMove={isMobile ? undefined : handleMouseMove}
+      onMouseLeave={isMobile ? undefined : handleMouseLeave}
       style={{ perspective: '1200px' }}
     >
       {/* === BACKGROUND LAYER (slowest parallax) === */}
@@ -190,15 +200,15 @@ export default function Hero() {
         <div className="absolute bottom-1/4 right-1/5 w-[500px] h-[500px] bg-[rgba(160,255,238,0.008)] rounded-full blur-[100px] animate-pulse-slow" style={{ animationDelay: '3s' }} />
       </motion.div>
 
-      <Particles />
+      {!isMobile && <Particles />}
 
       {/* Floating code snippets */}
-      {codePositions.map(cp => (
+      {!isMobile && codePositions.map(cp => (
         <FloatingCode key={cp.id} delay={cp.delay} x={cp.x} y={cp.y} />
       ))}
 
       {/* === ORBITAL RINGS (deep parallax) === */}
-      <motion.div style={{ y: orbY }} className="absolute inset-0 pointer-events-none">
+      <motion.div style={{ y: orbY }} className="absolute inset-0 pointer-events-none hidden md:block">
         {[400, 550, 700, 850].map((size, i) => (
           <motion.div
             key={size}
@@ -230,13 +240,13 @@ export default function Hero() {
           y: heroY,
           opacity: heroOpacity,
           scale: heroScale,
-          rotateX,
-          rotateY,
+          rotateX: isMobile ? 0 : rotateX,
+          rotateY: isMobile ? 0 : rotateY,
           transformStyle: 'preserve-3d',
         }}
-        className="relative z-10 w-full max-w-6xl px-6"
+        className="relative z-10 w-full max-w-6xl px-4 sm:px-6"
       >
-        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+        <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-10 lg:gap-16">
           {/* Left: Text content */}
           <div className="text-center lg:text-left flex-1 order-2 lg:order-1" style={{ transformStyle: 'preserve-3d' }}>
             {/* Status badge */}
@@ -245,7 +255,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               style={{ transform: 'translateZ(30px)' }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/[0.08] mb-8"
+              className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full glass border border-white/[0.08] mb-6 sm:mb-8"
             >
               <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
               <span className="text-silver-400 text-xs font-mono tracking-wider">Available for work</span>
@@ -256,7 +266,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
               style={{ transform: 'translateZ(50px)' }}
-              className="text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-black tracking-tighter mb-4 leading-[0.85] glow-text"
+              className="text-5xl sm:text-7xl md:text-9xl lg:text-[10rem] font-black tracking-tighter mb-3 sm:mb-4 leading-[0.85] glow-text"
             >
               <span className="text-gradient-bright">{alias}</span>
             </motion.h1>
@@ -266,9 +276,9 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
               style={{ transform: 'translateZ(20px)' }}
-              className="h-8 mb-8"
+              className="h-7 sm:h-8 mb-6 sm:mb-8"
             >
-              <span className="text-lg md:text-xl text-silver-400 font-light tracking-wide">
+              <span className="text-base sm:text-lg md:text-xl text-silver-400 font-light tracking-wide">
                 {typedText}
                 <span className="inline-block w-[2px] h-5 bg-white/40 ml-1 animate-pulse" />
               </span>
@@ -279,7 +289,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.0 }}
               style={{ transform: 'translateZ(10px)' }}
-              className="text-silver-500 text-base md:text-lg max-w-lg mb-12 leading-relaxed lg:mx-0 mx-auto"
+              className="text-silver-500 text-sm sm:text-base md:text-lg max-w-lg mb-8 sm:mb-12 leading-relaxed lg:mx-0 mx-auto"
             >
               {data.personal.role} based in {data.personal.location}
             </motion.p>
@@ -289,13 +299,13 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.2 }}
               style={{ transform: 'translateZ(25px)' }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start w-full sm:w-auto"
             >
               <motion.a
                 href="#projects"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="group relative px-8 py-3.5 bg-white text-dark-900 rounded-full font-semibold text-sm tracking-wide overflow-hidden"
+                className="group relative px-8 py-3.5 bg-white text-dark-900 rounded-full font-semibold text-sm tracking-wide overflow-hidden text-center w-full sm:w-auto"
               >
                 <span className="relative z-10">View Work</span>
                 <motion.div
@@ -309,7 +319,7 @@ export default function Hero() {
                 href="#contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-3.5 text-silver-300 border border-white/[0.12] rounded-full font-medium text-sm tracking-wide transition-all duration-300 hover:text-white hover:border-white/30 hover:bg-white/[0.04]"
+                className="px-8 py-3.5 text-silver-300 border border-white/[0.12] rounded-full font-medium text-sm tracking-wide transition-all duration-300 hover:text-white hover:border-white/30 hover:bg-white/[0.04] text-center w-full sm:w-auto"
               >
                 Let&apos;s Talk
               </motion.a>
@@ -321,7 +331,7 @@ export default function Hero() {
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 1.6 }}
               style={{ transform: 'translateZ(15px)' }}
-              className="flex gap-5 mt-12 justify-center lg:justify-start"
+              className="flex gap-4 sm:gap-5 mt-8 sm:mt-12 justify-center lg:justify-start"
             >
               {data.social.github && (
                 <motion.a
@@ -369,8 +379,8 @@ export default function Hero() {
             transition={{ duration: 1.4, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
             style={{
               y: avatarY,
-              rotateX: avatarRotateX,
-              rotateY: avatarRotateY,
+              rotateX: isMobile ? 0 : avatarRotateX,
+              rotateY: isMobile ? 0 : avatarRotateY,
               transformStyle: 'preserve-3d',
               transform: 'translateZ(60px)',
             }}
@@ -383,19 +393,19 @@ export default function Hero() {
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] md:w-[340px] md:h-[340px] rounded-full border border-white/[0.04]"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[220px] sm:w-[280px] sm:h-[280px] md:w-[340px] md:h-[340px] rounded-full border border-white/[0.04]"
               style={{ transform: 'translateZ(-20px)' }}
             />
             <motion.div
               animate={{ rotate: -360 }}
               transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] md:w-[390px] md:h-[390px] rounded-full border border-white/[0.02]"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] md:w-[390px] md:h-[390px] rounded-full border border-white/[0.02]"
               style={{ transform: 'translateZ(-40px)' }}
             />
 
             {/* The pixel avatar */}
             <div className="relative z-10">
-              <PixelAvatar size={240} className="md:w-auto w-full" />
+              <PixelAvatar size={isMobile ? 170 : 240} className="md:w-auto w-full" />
             </div>
 
             {/* Floating tech badges around avatar */}
@@ -412,7 +422,7 @@ export default function Hero() {
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-                className="absolute glass border border-white/[0.08] px-2 py-1 rounded-lg text-[10px] font-mono text-silver-400"
+                className="absolute hidden md:block glass border border-white/[0.08] px-2 py-1 rounded-lg text-[10px] font-mono text-silver-400"
                 style={{
                   top: `${[10, 80, 50, 20][i]}%`,
                   [i % 2 === 0 ? 'left' : 'right']: i < 2 ? '-20px' : '-30px',
@@ -431,7 +441,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20"
+        className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 z-20"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}

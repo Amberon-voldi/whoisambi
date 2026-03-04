@@ -36,13 +36,13 @@ export default function Navbar() {
       animate={{ y: hidden ? -100 : 0 }}
       transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? 'glass-strong py-3' : 'bg-transparent py-6'
+        scrolled ? 'glass-strong py-2 sm:py-3' : 'bg-transparent py-4 sm:py-6'
       }`}
     >
-      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
         <motion.a
           href="#home"
-          className="text-xl font-bold tracking-tight text-white"
+          className="text-lg sm:text-xl font-bold tracking-tight text-white"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -81,7 +81,7 @@ export default function Navbar() {
 
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden relative w-8 h-8 flex items-center justify-center"
+          className="md:hidden relative w-9 h-9 flex items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.02]"
           aria-label="Toggle menu"
         >
           <div className="flex flex-col gap-1.5">
@@ -107,9 +107,9 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-strong mt-3 mx-4 rounded-2xl overflow-hidden"
+            className="md:hidden glass-strong mt-2 mx-3 sm:mx-4 rounded-2xl overflow-hidden"
           >
-            <div className="py-4 px-6 flex flex-col gap-1">
+            <div className="py-3 px-4 sm:px-6 flex flex-col gap-1">
               {data.navLinks.map((link, i) => (
                 <motion.a
                   key={link.href}

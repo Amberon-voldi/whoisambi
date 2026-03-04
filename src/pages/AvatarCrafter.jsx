@@ -28,9 +28,8 @@ export default function AvatarCrafter() {
   const [config, setConfig] = useState({ ...DEFAULT_CONFIG })
   const [activeTab, setActiveTab] = useState('skin')
   const [showGrid, setShowGrid] = useState(false)
-  const [downloadSize, setDownloadSize] = useState(640)
   const [showDownloadMenu, setShowDownloadMenu] = useState(false)
-  const canvasRef = useRef(null)
+  const [isMobile, setIsMobile] = useState(false)
 
   const update = useCallback((key, val) => {
     setConfig(prev => ({ ...prev, [key]: val }))
@@ -115,31 +114,39 @@ export default function AvatarCrafter() {
     return () => document.removeEventListener('mousedown', close)
   }, [showDownloadMenu])
 
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 1023px)')
+    const sync = () => setIsMobile(mq.matches)
+    sync()
+    mq.addEventListener('change', sync)
+    return () => mq.removeEventListener('change', sync)
+  }, [])
+
   // ─── RENDER ──────────────────────────────────────────────────────
 
   return (
     <div className="min-h-screen bg-dark-900 text-silver-200 font-sans">
       {/* HEADER */}
       <header className="fixed top-0 left-0 right-0 z-50 glass-strong">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2">
           <Link
             to="/"
-            className="flex items-center gap-2 text-silver-400 hover:text-white transition-colors"
+            className="flex items-center gap-1.5 sm:gap-2 text-silver-400 hover:text-white transition-colors"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
-            <span className="text-sm font-medium">Back</span>
+            <span className="text-xs sm:text-sm font-medium">Back</span>
           </Link>
-          <h1 className="text-lg font-bold">
+          <h1 className="text-sm sm:text-lg font-bold whitespace-nowrap">
             <span className="text-gradient-bright">Craft</span>
-            <span className="text-silver-500"> Your Avatar</span>
+            <span className="text-silver-500 hidden sm:inline"> Your Avatar</span>
           </h1>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleRandomize}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/[0.06] border border-white/[0.08] text-sm text-silver-300 hover:text-white hover:bg-white/[0.1] transition-all"
+            className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-white/[0.06] border border-white/[0.08] text-xs sm:text-sm text-silver-300 hover:text-white hover:bg-white/[0.1] transition-all"
           >
             <span className="text-base">🎲</span>
             <span className="hidden sm:inline">Random</span>
@@ -148,16 +155,16 @@ export default function AvatarCrafter() {
       </header>
 
       {/* MAIN CONTENT */}
-      <div className="pt-20 pb-8 px-4 sm:px-6">
+      <div className="pt-16 sm:pt-20 pb-8 px-3 sm:px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
+          <div className="flex flex-col lg:flex-row gap-5 sm:gap-6 lg:gap-8">
 
             {/* LEFT: PREVIEW */}
             <div className="flex-shrink-0 flex flex-col items-center">
-              <div className="sticky top-24">
+              <div className={isMobile ? 'w-full' : 'sticky top-24'}>
                 {/* Preview Card */}
                 <motion.div
-                  className="relative glass rounded-2xl p-6 sm:p-8"
+                  className="relative glass rounded-2xl p-4 sm:p-6 md:p-8"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
@@ -171,8 +178,8 @@ export default function AvatarCrafter() {
                   {/* SVG Preview */}
                   <div className="relative">
                     <svg
-                      width={320}
-                      height={320 * (ROWS / COLS)}
+                      width={isMobile ? 260 : 320}
+                      height={(isMobile ? 260 : 320) * (ROWS / COLS)}
                       viewBox={`0 0 ${COLS} ${ROWS}`}
                       className="relative z-10 mx-auto block"
                       style={{ imageRendering: 'pixelated' }}
@@ -263,7 +270,7 @@ export default function AvatarCrafter() {
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     onClick={() => setShowDownloadMenu(m => !m)}
-                    className="relative flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/[0.08] border border-white/[0.1] text-sm font-medium text-white hover:bg-white/[0.12] transition-all"
+                    className="relative flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl bg-white/[0.08] border border-white/[0.1] text-sm font-medium text-white hover:bg-white/[0.12] transition-all"
                   >
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -322,7 +329,7 @@ export default function AvatarCrafter() {
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`relative flex items-center gap-1.5 px-4 py-3 sm:px-5 sm:py-4 text-sm font-medium whitespace-nowrap transition-colors ${
+                      className={`relative flex items-center gap-1.5 px-3 sm:px-5 py-3 sm:py-4 text-xs sm:text-sm font-medium whitespace-nowrap transition-colors ${
                         activeTab === tab.id
                           ? 'text-white'
                           : 'text-silver-500 hover:text-silver-300'

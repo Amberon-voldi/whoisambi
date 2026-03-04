@@ -32,7 +32,7 @@ export default function About() {
   const alias = data.personal.alias || data.personal.name.split(' ')[0]
 
   return (
-    <section id="about" className="relative py-36 px-6 overflow-hidden">
+    <section id="about" className="relative py-24 md:py-36 px-4 sm:px-6 overflow-hidden">
       {/* Large background text */}
       <motion.div
         style={{ y: parallaxY }}
@@ -49,12 +49,12 @@ export default function About() {
       <div ref={sectionRef} className="relative max-w-5xl mx-auto">
         <RevealText>
           <p className="text-silver-500 font-mono text-xs tracking-[0.3em] uppercase mb-4">About</p>
-          <h2 className="text-4xl md:text-6xl font-bold text-gradient-bright mb-16 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-gradient-bright mb-12 md:mb-16 tracking-tight">
             Who is {alias}?
           </h2>
         </RevealText>
 
-        <div className="grid md:grid-cols-5 gap-12 md:gap-20 items-start">
+        <div className="grid md:grid-cols-5 gap-10 md:gap-20 items-start">
           {/* Left: Avatar */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8, rotateY: -20 }}
@@ -65,8 +65,8 @@ export default function About() {
             <div className="relative group flex flex-col items-center gap-4">
               {/* Glow behind avatar */}
               <div className="absolute inset-0 bg-[rgba(160,255,238,0.02)] rounded-3xl blur-2xl scale-110 group-hover:bg-[rgba(160,255,238,0.05)] transition-colors duration-700" />
-              <div className="relative w-52 h-52 md:w-64 md:h-64 rounded-3xl glass border border-white/[0.08] flex items-center justify-center overflow-hidden shine group-hover:border-white/[0.15] transition-colors duration-500 p-4">
-                <PixelAvatar size={180} />
+              <div className="relative w-44 h-44 sm:w-52 sm:h-52 md:w-64 md:h-64 rounded-3xl glass border border-white/[0.08] flex items-center justify-center overflow-hidden shine group-hover:border-white/[0.15] transition-colors duration-500 p-3 sm:p-4">
+                <PixelAvatar size={150} />
               </div>
               {/* Orbiting dots */}
               <div className="absolute inset-0 animate-spin-slow">
@@ -78,7 +78,7 @@ export default function About() {
 
               <Link
                 to="/craft-avatar"
-                className="relative z-10 px-4 py-2 text-xs font-mono tracking-wide glass rounded-lg border border-white/[0.08] text-silver-300 hover:text-white hover:border-white/[0.18] transition-colors"
+                className="relative z-10 px-4 py-2 text-xs sm:text-sm font-mono tracking-wide glass rounded-lg border border-white/[0.08] text-silver-300 hover:text-white hover:border-white/[0.18] transition-colors"
               >
                 ✨ Craft Your Avatar
               </Link>
@@ -86,15 +86,15 @@ export default function About() {
           </motion.div>
 
           {/* Right: Bio */}
-          <div className="md:col-span-3 space-y-8">
+          <div className="md:col-span-3 space-y-7 sm:space-y-8 text-center md:text-left">
             <RevealText delay={0.3}>
-              <p className="text-silver-300 text-lg md:text-xl leading-relaxed">
+              <p className="text-silver-300 text-base sm:text-lg md:text-xl leading-relaxed">
                 {data.personal.bio}
               </p>
             </RevealText>
 
             <RevealText delay={0.5}>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2.5 sm:gap-3 justify-center md:justify-start">
                 <span className="px-4 py-2 glass rounded-full text-sm text-silver-300 border border-white/[0.06] hover:border-white/[0.12] transition-colors">
                   📍 {data.personal.location}
                 </span>
@@ -118,7 +118,7 @@ export default function About() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={isInView ? { opacity: 1, x: 0 } : {}}
                       transition={{ delay: 0.8 + i * 0.15 }}
-                      className="group relative pl-6 border-l border-white/[0.08] hover:border-white/[0.2] transition-colors duration-500"
+                      className="group relative pl-5 sm:pl-6 border-l border-white/[0.08] hover:border-white/[0.2] transition-colors duration-500 text-left"
                     >
                       <div className="absolute left-0 top-1.5 w-2 h-2 -translate-x-[4.5px] bg-white/15 rounded-full group-hover:bg-white/40 transition-colors duration-500" />
                       <p className="text-white font-medium text-sm">{exp.role}</p>

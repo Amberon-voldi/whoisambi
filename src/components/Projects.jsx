@@ -46,7 +46,7 @@ function ProjectCard({ project, index, onClick }) {
       )}
 
       {/* Project visual */}
-      <div className="relative h-52 overflow-hidden">
+      <div className="relative h-44 sm:h-52 overflow-hidden">
         {project.image ? (
           <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
         ) : (
@@ -93,10 +93,10 @@ function ProjectCard({ project, index, onClick }) {
       </div>
 
       {/* Content */}
-      <div className="relative p-6 z-10">
+      <div className="relative p-5 sm:p-6 z-10">
         <div className="flex items-start justify-between gap-4 mb-3">
           <div>
-            <h3 className="text-white font-semibold text-lg group-hover:text-gradient-bright transition-all duration-300">
+            <h3 className="text-white font-semibold text-base sm:text-lg group-hover:text-gradient-bright transition-all duration-300">
               {project.title}
             </h3>
             {project.subtitle && (
@@ -107,7 +107,7 @@ function ProjectCard({ project, index, onClick }) {
             <span className="text-silver-500 text-xs font-mono shrink-0">{project.year}</span>
           )}
         </div>
-        <p className="text-silver-500 text-sm leading-relaxed mb-5">
+        <p className="text-silver-500 text-sm leading-relaxed mb-4 sm:mb-5">
           {project.description}
         </p>
         <div className="flex flex-wrap gap-2">
@@ -136,7 +136,7 @@ export default function Projects({ onProjectClick }) {
   const parallaxY = useTransform(scrollYProgress, [0, 1], [40, -40])
 
   return (
-    <section ref={sectionRef} id="projects" className="relative py-36 px-6 overflow-hidden">
+    <section ref={sectionRef} id="projects" className="relative py-24 md:py-36 px-4 sm:px-6 overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-20 bg-gradient-to-b from-transparent to-white/10" />
 
       {/* Background accent */}
@@ -151,18 +151,18 @@ export default function Projects({ onProjectClick }) {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-16"
+          className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 sm:gap-4 mb-12 md:mb-16"
         >
           <div>
             <p className="text-silver-500 font-mono text-xs tracking-[0.3em] uppercase mb-4">Projects</p>
-            <h2 className="text-4xl md:text-6xl font-bold text-gradient-bright tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-gradient-bright tracking-tight">
               Selected Work
             </h2>
           </div>
-          <p className="text-silver-500 text-sm max-w-xs">Click any project to explore it in detail</p>
+          <p className="text-silver-500 text-sm max-w-xs">Tap any project to explore it in detail</p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-5 sm:gap-8">
           {data.projects.map((project, i) => (
             <ProjectCard
               key={project.id || project.title}

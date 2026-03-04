@@ -53,7 +53,7 @@ function SkillCard({ category, icon, items, index }) {
           : 'perspective(800px) rotateY(0deg) rotateX(0deg)',
         transition: 'transform 0.2s ease-out',
       }}
-      className="group relative glass rounded-2xl p-7 border border-white/[0.06] hover:border-white/[0.15] transition-all duration-500 shine glow-box"
+      className="group relative glass rounded-2xl p-5 sm:p-7 border border-white/[0.06] hover:border-white/[0.15] transition-all duration-500 shine glow-box"
     >
       {/* Hover spotlight */}
       {hovered && (
@@ -66,11 +66,11 @@ function SkillCard({ category, icon, items, index }) {
       )}
 
       <div className="relative z-10">
-        <div className="flex items-center gap-3 mb-6">
+        <div className="flex items-center gap-3 mb-5 sm:mb-6">
           <div className="w-9 h-9 rounded-xl glass border border-white/[0.08] flex items-center justify-center text-silver-400 group-hover:text-white group-hover:border-white/[0.15] transition-all duration-500">
             {iconMap[icon] || iconMap.terminal}
           </div>
-          <h3 className="text-white font-semibold text-lg">{category}</h3>
+          <h3 className="text-white font-semibold text-base sm:text-lg">{category}</h3>
         </div>
         <div className="flex flex-wrap gap-2">
           {items.map((skill, i) => (
@@ -80,7 +80,7 @@ function SkillCard({ category, icon, items, index }) {
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ delay: index * 0.12 + i * 0.04 + 0.3 }}
               whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,0.1)' }}
-              className="px-3 py-1.5 text-sm text-silver-300 bg-white/[0.03] rounded-lg border border-white/[0.06] cursor-default transition-colors hover:text-white hover:border-white/[0.15]"
+              className="px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm text-silver-300 bg-white/[0.03] rounded-lg border border-white/[0.06] cursor-default transition-colors hover:text-white hover:border-white/[0.15]"
             >
               {skill}
             </motion.span>
@@ -102,7 +102,7 @@ export default function Skills() {
   const parallaxY = useTransform(scrollYProgress, [0, 1], [40, -40])
 
   return (
-    <section ref={sectionRef} id="skills" className="relative py-36 px-6 overflow-hidden">
+    <section ref={sectionRef} id="skills" className="relative py-24 md:py-36 px-4 sm:px-6 overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-20 bg-gradient-to-b from-transparent to-white/10" />
 
       {/* Background accent */}
@@ -119,12 +119,12 @@ export default function Skills() {
           transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <p className="text-silver-500 font-mono text-xs tracking-[0.3em] uppercase mb-4">Skills</p>
-          <h2 className="text-4xl md:text-6xl font-bold text-gradient-bright mb-16 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-gradient-bright mb-12 md:mb-16 tracking-tight">
             What I Work With
           </h2>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 gap-6">
+        <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
           {data.skills.map((skill, i) => (
             <SkillCard
               key={skill.category}

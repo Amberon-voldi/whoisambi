@@ -14,7 +14,7 @@ export default function Contact() {
   const alias = data.personal.alias || data.personal.name.split(' ')[0]
 
   return (
-    <section id="contact" className="relative py-36 px-6 overflow-hidden">
+    <section id="contact" className="relative py-24 md:py-36 px-4 sm:px-6 overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-20 bg-gradient-to-b from-transparent to-white/10" />
 
       {/* Background accent */}
@@ -30,10 +30,10 @@ export default function Contact() {
           transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <p className="text-silver-500 font-mono text-xs tracking-[0.3em] uppercase mb-4">Contact</p>
-          <h2 className="text-4xl md:text-6xl font-bold text-gradient-bright mb-6 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-gradient-bright mb-5 sm:mb-6 tracking-tight">
             Let&apos;s Build Something
           </h2>
-          <p className="text-silver-500 text-lg max-w-lg mx-auto mb-14 leading-relaxed">
+          <p className="text-silver-500 text-base sm:text-lg max-w-lg mx-auto mb-10 sm:mb-14 leading-relaxed">
             Got a project, idea, or just want to say hi? {alias} is always up for a conversation.
           </p>
         </motion.div>
@@ -43,18 +43,18 @@ export default function Contact() {
           initial={{ opacity: 0, y: 30, scale: 0.95 }}
           animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-16"
+          className="mb-12 sm:mb-16"
         >
           <motion.a
             href={`mailto:${data.personal.email}`}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            className="group inline-flex items-center gap-4 px-10 py-5 glass-strong rounded-2xl border border-white/[0.08] hover:border-white/[0.2] transition-all duration-500"
+            className="group inline-flex items-center gap-3 sm:gap-4 px-5 sm:px-10 py-4 sm:py-5 glass-strong rounded-2xl border border-white/[0.08] hover:border-white/[0.2] transition-all duration-500 max-w-full"
           >
             <svg className="w-5 h-5 text-silver-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
             </svg>
-            <span className="text-xl md:text-2xl font-medium text-silver-200 group-hover:text-white transition-colors">
+            <span className="text-base sm:text-xl md:text-2xl font-medium text-silver-200 group-hover:text-white transition-colors break-all sm:break-normal">
               {data.personal.email}
             </span>
             <svg className="w-5 h-5 text-silver-500 group-hover:text-white group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -68,7 +68,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex justify-center gap-4"
+          className="flex justify-center gap-3 sm:gap-4"
         >
           {data.social.github && (
             <motion.a

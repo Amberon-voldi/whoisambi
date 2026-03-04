@@ -5,8 +5,8 @@ export default function Footer() {
   const alias = data.personal.alias || data.personal.name.split(' ')[0]
 
   return (
-    <footer className="relative py-10 px-6 border-t border-white/[0.04]">
-      <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+    <footer className="relative py-8 sm:py-10 px-4 sm:px-6 border-t border-white/[0.04]">
+      <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-5 sm:gap-6">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -24,7 +24,7 @@ export default function Footer() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="flex gap-5"
+          className="flex flex-wrap justify-center gap-x-5 gap-y-2"
         >
           {data.social.github && (
             <motion.a
