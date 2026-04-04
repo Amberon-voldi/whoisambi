@@ -51,6 +51,66 @@
 }
 
 @layer components {
+  .deck-main {
+    height: 100svh;
+    overflow: hidden;
+  }
+
+  .deck-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .deck-card-layer {
+    position: absolute;
+    inset: 0;
+    padding: 5.2rem 0.8rem 0.8rem;
+    transform-origin: center top;
+    will-change: transform, opacity, filter;
+    pointer-events: none;
+  }
+
+  .deck-card-layer.is-active {
+    pointer-events: auto;
+  }
+
+  .shuffle-stack-shell {
+    height: 100%;
+    border-radius: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(5, 5, 5, 0.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 34px 96px rgba(0, 0, 0, 0.5), 0 0 64px rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+  }
+
+  .deck-card-scroll {
+    height: calc(100svh - 6rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+  }
+
+  .deck-card-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (max-width: 1023px) {
+    .deck-card-layer {
+      padding: 4.8rem 0.4rem 0.5rem;
+    }
+
+    .deck-card-scroll {
+      height: calc(100svh - 5.3rem);
+    }
+
+    .shuffle-stack-shell {
+      border-radius: 1.3rem;
+    }
+  }
+
   .glass {
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(16px);

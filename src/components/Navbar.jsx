@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import data from '../data/portfolio.json'
@@ -8,27 +8,131 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
   const [hidden, setHidden] = useState(false)
-  const [lastScroll, setLastScroll] = useState(0)
+  const [deckMode, setDeckMode] = useState(false)
+  const lastScrollRef = useRef(0)
+  const rafRef = useRef(null)
+
+  const handleSectionClick = (event, href, closeMobile = false) => {
+    if (closeMobile) {
+      setMobileOpen(false)
+    }
+
+    if (!deckMode) {
+      return
+    }
+
+    event.preventDefault()
+    const sectionId = href.slice(1)
+    setActiveSection(sectionId)
+    setHidden(false)
+    setScrolled(true)
+    window.dispatchEvent(new CustomEvent('deckJumpTo', { detail: sectionId }))
+  }
 
   useEffect(() => {
-    const onScroll = () => {
-      const current = window.scrollY
-      setScrolled(current > 50)
-      setHidden(current > lastScroll && current > 300)
-      setLastScroll(current)
+    const desktopMq = window.matchMedia('(min-width: 1024px)')
+    const reduceMotionMq = window.matchMedia('(prefers-reduced-motion: reduce)')
 
-      const sections = data.navLinks.map(l => l.href.slice(1))
-      for (const id of [...sections].reverse()) {
-        const el = document.getElementById(id)
-        if (el && el.getBoundingClientRect().top <= 150) {
-          setActiveSection(id)
-          break
-        }
+    const syncDeckMode = () => {
+      setDeckMode(desktopMq.matches && !reduceMotionMq.matches)
+    }
+
+    syncDeckMode()
+    desktopMq.addEventListener('change', syncDeckMode)
+    reduceMotionMq.addEventListener('change', syncDeckMode)
+
+    return () => {
+      desktopMq.removeEventListener('change', syncDeckMode)
+      reduceMotionMq.removeEventListener('change', syncDeckMode)
+    }
+  }, [])
+
+  useEffect(() => {
+    const onDeckSectionChange = (event) => {
+      if (typeof event?.detail === 'string') {
+        setActiveSection(event.detail)
+        setHidden(false)
+        setScrolled(true)
       }
     }
+
+    window.addEventListener('deckSectionChange', onDeckSectionChange)
+    return () => window.removeEventListener('deckSectionChange', onDeckSectionChange)
+  }, [])
+
+  useEffect(() => {
+    const sectionIds = data.navLinks.map((l) => l.href.slice(1))
+
+    const updateNavState = () => {
+      if (deckMode) {
+        setHidden(false)
+        setScrolled(true)
+        rafRef.current = null
+        return
+      }
+
+      const current = window.scrollY
+      const delta = Math.abs(current - lastScrollRef.current)
+      const isScrollingDown = current > lastScrollRef.current
+
+      setScrolled(current > 50)
+
+      // Keep navbar visible near the top and only hide on meaningful downward scroll.
+      if (current < 120) {
+        setHidden(false)
+      } else if (delta > 8) {
+        setHidden(isScrollingDown && current > 260)
+      }
+
+      const markerTop = window.innerHeight * 0.28
+      const markerBottom = window.innerHeight * 0.18
+      let nextActive = sectionIds[0] || 'home'
+
+      for (const id of sectionIds) {
+        const el = document.getElementById(id)
+        if (!el) continue
+
+        const rect = el.getBoundingClientRect()
+
+        if (rect.top <= markerTop && rect.bottom >= markerBottom) {
+          nextActive = id
+          break
+        }
+
+        if (rect.top <= markerTop) {
+          nextActive = id
+        }
+      }
+
+      setActiveSection((prev) => (prev === nextActive ? prev : nextActive))
+      lastScrollRef.current = current
+      rafRef.current = null
+    }
+
+    const onScroll = () => {
+      if (rafRef.current !== null) {
+        return
+      }
+
+      rafRef.current = window.requestAnimationFrame(updateNavState)
+    }
+
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [lastScroll])
+    updateNavState()
+
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      if (rafRef.current !== null) {
+        window.cancelAnimationFrame(rafRef.current)
+      }
+    }
+  }, [deckMode])
+
+  useEffect(() => {
+    if (mobileOpen) {
+      setHidden(false)
+    }
+  }, [mobileOpen])
 
   return (
     <motion.nav
@@ -42,6 +146,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
         <motion.a
           href="#home"
+          onClick={(event) => handleSectionClick(event, '#home')}
           className="text-lg sm:text-xl font-bold tracking-tight text-white"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -55,6 +160,7 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
+              onClick={(event) => handleSectionClick(event, link.href)}
               className={`relative px-4 py-2 text-sm font-medium transition-colors duration-300 rounded-full ${
                 activeSection === link.href.slice(1)
                   ? 'text-white'
@@ -114,7 +220,7 @@ export default function Navbar() {
                 <motion.a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={(event) => handleSectionClick(event, link.href, true)}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.06 }}
