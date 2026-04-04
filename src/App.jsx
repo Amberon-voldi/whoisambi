@@ -30,6 +30,7 @@ function Home() {
   const lockRef = useRef(false)
   const lockTimerRef = useRef(null)
   const cardScrollRefs = useRef([])
+  const boundaryIntentRef = useRef({ cardIndex: -1, direction: 0, amount: 0 })
 
   useEffect(() => {
     const handler = (e) => setActiveProject(e.detail)
@@ -80,6 +81,7 @@ function Home() {
   useEffect(() => {
     if (!deckMode) {
       lockRef.current = false
+      boundaryIntentRef.current = { cardIndex: -1, direction: 0, amount: 0 }
       if (lockTimerRef.current !== null) {
         window.clearTimeout(lockTimerRef.current)
         lockTimerRef.current = null
@@ -88,6 +90,13 @@ function Home() {
     }
 
     const maxIndex = DECK_SECTION_META.length - 1
+
+    const EDGE_TOLERANCE_PX = 14
+    const ACTIVATION_DELTA_THRESHOLD = 200
+
+    const resetBoundaryIntent = () => {
+      boundaryIntentRef.current = { cardIndex: -1, direction: 0, amount: 0 }
+    }
 
     const isScrollable = (el, deltaY) => {
       if (!(el instanceof HTMLElement)) {
@@ -100,10 +109,27 @@ function Home() {
       }
 
       if (deltaY > 0) {
-        return el.scrollTop < maxScrollTop - 1
+        return el.scrollTop < maxScrollTop - EDGE_TOLERANCE_PX
       }
 
-      return el.scrollTop > 1
+      return el.scrollTop > EDGE_TOLERANCE_PX
+    }
+
+    const isAtBoundary = (el, direction) => {
+      if (!(el instanceof HTMLElement)) {
+        return true
+      }
+
+      const maxScrollTop = el.scrollHeight - el.clientHeight
+      if (maxScrollTop <= 1) {
+        return true
+      }
+
+      if (direction > 0) {
+        return el.scrollTop >= maxScrollTop - EDGE_TOLERANCE_PX
+      }
+
+      return el.scrollTop <= EDGE_TOLERANCE_PX
     }
 
     const clearLock = () => {
@@ -120,6 +146,7 @@ function Home() {
       }
 
       clearLock()
+      resetBoundaryIntent()
       lockRef.current = true
       setTransitionDirection(direction)
       activeCardRef.current = clamped
@@ -138,16 +165,23 @@ function Home() {
     }
 
     const onWheel = (event) => {
-      if (activeProject || Math.abs(event.deltaY) < 8) {
+      if (activeProject || Math.abs(event.deltaY) < 4) {
         return
       }
 
       const currentIndex = activeCardRef.current
       const activeScroller = cardScrollRefs.current[currentIndex]
+      const direction = event.deltaY > 0 ? 1 : -1
 
       if (isScrollable(activeScroller, event.deltaY)) {
         event.preventDefault()
         activeScroller.scrollTop += event.deltaY
+        resetBoundaryIntent()
+        return
+      }
+
+      if (!isAtBoundary(activeScroller, direction)) {
+        resetBoundaryIntent()
         return
       }
 
@@ -157,7 +191,23 @@ function Home() {
       }
 
       event.preventDefault()
-      const direction = event.deltaY > 0 ? 1 : -1
+
+      const intent = boundaryIntentRef.current
+      if (intent.cardIndex !== currentIndex || intent.direction !== direction) {
+        boundaryIntentRef.current = {
+          cardIndex: currentIndex,
+          direction,
+          amount: Math.abs(event.deltaY),
+        }
+        return
+      }
+
+      intent.amount += Math.abs(event.deltaY)
+      if (intent.amount < ACTIVATION_DELTA_THRESHOLD) {
+        return
+      }
+
+      resetBoundaryIntent()
       goToCard(currentIndex + direction, direction)
     }
 
@@ -168,9 +218,11 @@ function Home() {
 
       if (event.key === 'ArrowDown' || event.key === 'PageDown') {
         event.preventDefault()
+          resetBoundaryIntent()
         goToCard(activeCardRef.current + 1, 1)
       } else if (event.key === 'ArrowUp' || event.key === 'PageUp') {
         event.preventDefault()
+          resetBoundaryIntent()
         goToCard(activeCardRef.current - 1, -1)
       }
     }
@@ -187,6 +239,7 @@ function Home() {
       }
 
       const direction = targetIndex > activeCardRef.current ? 1 : -1
+      resetBoundaryIntent()
       goToCard(targetIndex, direction)
     }
 
@@ -199,6 +252,7 @@ function Home() {
       window.removeEventListener('keydown', onKeyDown)
       window.removeEventListener('deckJumpTo', onDeckJump)
       clearLock()
+      resetBoundaryIntent()
       lockRef.current = false
     }
   }, [activeProject, deckMode])
@@ -267,7 +321,14 @@ function Home() {
                   key={section.id}
                   initial={false}
                   animate={cardState}
-                  transition={{ duration: 0.65, ease: [0.22, 0.7, 0.2, 1] }}
+                  transition={{
+                    y: { type: 'spring', stiffness: 110, damping: 22, mass: 0.95 },
+                    scale: { type: 'spring', stiffness: 120, damping: 22, mass: 0.9 },
+                    rotateX: { type: 'spring', stiffness: 105, damping: 24, mass: 0.95 },
+                    rotateZ: { type: 'spring', stiffness: 105, damping: 24, mass: 0.95 },
+                    opacity: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
+                    filter: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
+                  }}
                   style={{ zIndex: cardState.zIndex }}
                   className={`deck-card-layer ${isActive ? 'is-active' : ''}`}
                 >
