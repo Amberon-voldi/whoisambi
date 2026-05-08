@@ -190,61 +190,62 @@
       "year": "2025"
     },
     {
-      "id": "wldplay",
-      "title": "wldplay",
-      "subtitle": "World Mini-App Starter",
-      "description": "A TypeScript/Next.js mini-app setup for World App integrations with wallet-auth based flows.",
-      "longDescription": "wldplay explores mini-app development with a TypeScript-heavy Next.js stack, integrating wallet authentication and world-app-specific SDK patterns. It serves as a practical base for shipping mini-app experiences with platform-aligned UI and auth handling.",
+      "id": "sheascend",
+      "title": "SheAscend",
+      "subtitle": "AI-Powered Career Growth Platform",
+      "description": "A modern, AI-powered career growth platform designed to guide, empower, and uplift women through personalized learning paths and AI mentorship.",
+      "longDescription": "SheAscend is a modern, AI-powered career growth platform designed to guide, empower, and uplift women. It offers personalized learning, skill-building paths, mentorship support, interview prep, and smart goal tracking—helping women confidently grow, achieve, and ascend in their professional journey.",
       "highlights": [
-        "TypeScript-first Next.js implementation",
-        "Wallet-auth/session integration",
-        "Mini-app architecture patterns",
-        "Environment-based deployment workflow",
-        "Extensible starter structure"
+        "AI-Generated Career Roadmaps",
+        "Daily & Weekly Task Engine",
+        "AI Voice Mentor (Vapi Webhooks)",
+        "Skill Assessments",
+        "Future-Self Motivation",
+        "Women-Centric UI"
       ],
-      "tags": ["TypeScript", "Next.js", "Auth", "Web3"],
+      "tags": ["React.js", "TailwindCSS", "Vite", "Appwrite", "n8n", "Vapi.ai", "JavaScript"],
       "image": "",
       "liveUrl": "#",
-      "githubUrl": "https://github.com/Amberon-voldi/wldplay",
+      "githubUrl": "https://github.com/Amberon-voldi/SheAscend",
       "year": "2025"
     },
     {
-      "id": "guilded-dart",
-      "title": "Guilded.dart",
-      "subtitle": "Dart Library for Guilded Bots",
-      "description": "A Dart package to simplify building bots for Guilded with a clean library-first approach.",
-      "longDescription": "Guilded.dart is a focused library project aimed at making Guilded bot development easier from Dart. It reflects package-oriented design, API thinking, and reusable abstraction practices.",
+      "id": "ott-video-player",
+      "title": "OTT Video Player",
+      "subtitle": "Flutter Video Player Package",
+      "description": "A Flutter package providing OTT video player functionality with viewing and customization features like Netflix and MX Player.",
+      "longDescription": "OTT Video Player is a Flutter package that offers comprehensive video playback capabilities with extensive viewing and customization options. It provides a streaming experience similar to popular OTT platforms like Netflix and MX Player, featuring brightness and volume controls.",
       "highlights": [
-        "Reusable Dart package design",
-        "Bot integration oriented API",
-        "Open-source documentation setup",
-        "Community-facing developer utility",
-        "Published library-style repo structure"
+        "Video Player with OTT features",
+        "Brightness Controller",
+        "Volume Controller",
+        "Cross-platform Flutter package",
+        "Netflix-like streaming experience"
       ],
-      "tags": ["Dart", "Library", "Bots", "Open Source"],
+      "tags": ["Flutter", "Dart", "Video Player", "OTT", "Package"],
       "image": "",
       "liveUrl": "#",
-      "githubUrl": "https://github.com/Amberon-voldi/Guilded.dart",
-      "year": "2022"
+      "githubUrl": "https://github.com/Amberon-voldi/ott-video-player",
+      "year": "2024"
     },
     {
-      "id": "worldcoin-connect",
-      "title": "worldcoin-connect",
-      "subtitle": "Flutter Plugin for Worldcoin Integration",
-      "description": "An open-source Dart/Flutter package aimed at integrating Worldcoin capabilities into apps.",
-      "longDescription": "worldcoin-connect is a package-focused integration project for bringing Worldcoin-related capabilities into Flutter workflows. It highlights plugin architecture and practical Web3/mobile bridge experimentation.",
+      "id": "mythics",
+      "title": "Mythics",
+      "subtitle": "Discord Multi-Purpose Bot",
+      "description": "A Discord bot built with Discord.js featuring moderation tools and miscellaneous commands for server management.",
+      "longDescription": "Mythics is a multi-purpose Discord bot developed using Discord.js that provides essential moderation features and various utility commands. It serves as a comprehensive bot solution for Discord server management and community engagement.",
       "highlights": [
-        "Flutter package architecture",
-        "Web3 integration focus",
-        "Developer-friendly open-source setup",
-        "Lightweight integration surface",
-        "Composable package approach"
+        "Multi-purpose Discord bot",
+        "Basic moderation features",
+        "Miscellaneous utility commands",
+        "Discord.js framework",
+        "Server management tools"
       ],
-      "tags": ["Flutter", "Dart", "Worldcoin", "Package"],
+      "tags": ["JavaScript", "Discord.js", "Bot", "Discord", "Node.js"],
       "image": "",
       "liveUrl": "#",
-      "githubUrl": "https://github.com/Amberon-voldi/worldcoin-connect",
-      "year": "2024"
+      "githubUrl": "https://github.com/Amberon-voldi/mythics",
+      "year": "2022"
     }
   ],
   "experience": [
